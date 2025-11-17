@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Calculator {
+    // 메뉴 선택 번호 리스트
+    static List<Integer> menuNumList = List.of(1,2,3,0);
+
     public static int inputMenuNumberCheck(Scanner sc) {
         int inputMenuNumber;
 
@@ -20,14 +23,13 @@ public class Calculator {
             try {
                 inputMenuNumber = sc.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("""
-                === Java 계산기 ===
-                1. 계산하기
-                2. 계산 이력 보기
-                3. 이력 지우기
-                0. 종료하기
-                """);
-                System.out.print("메뉴 숫자를 입력해주세요 (1, 2, 3, 0): ");
+                System.out.println("잘못된 메뉴를 입력하셨습니다, 다시 입력해주세요");
+                sc.nextLine(); // 잘못된 입력 제거
+                continue;
+            }
+
+            if(!menuNumList.contains(inputMenuNumber)) {
+                System.out.println("올바른 메뉴를 입력해주세요");
                 sc.nextLine(); // 잘못된 입력 제거
                 continue;
             }
@@ -68,7 +70,7 @@ public class Calculator {
                     && !inputOperator.equals("%")
                     && !inputOperator.equals("^")
                     && !inputOperator.equals("sqrt")) {
-                System.out.println("지원하지 않는 연산자입니다.");
+                System.out.println("지원하지 않는 연산자입니다");
                 continue;
             }
 
@@ -146,18 +148,18 @@ public class Calculator {
                 }
             } else if (menuNumber == 2) {
                 if(resultList.isEmpty()) {
-                    System.out.println("계산한 이력이 없습니다.");
+                    System.out.println("계산한 이력이 없습니다");
                 } else {
-                    System.out.println("계산 이력을 출력합니다.");
+                    System.out.println("계산 이력을 출력합니다");
                     resultList.forEach(str -> System.out.print(str));
                 }
             } else if (menuNumber == 3) {
-                System.out.println("계산 이력을 지웁니다.");
+                System.out.println("계산 이력을 지웁니다");
                 resultList.clear();
             }
         }
 
-        System.out.println("계산기를 종료합니다.");
+        System.out.println("계산기를 종료합니다");
         scanner.close();
     }
 }
